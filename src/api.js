@@ -4,7 +4,7 @@ var request = require('request');
 
 const app = express();
 const router = express.Router();
-
+// const port = 3000;
 
 app.use(function (req, res, next) {
 
@@ -34,7 +34,7 @@ router.get("/", (req, res) => {
   options.url += 'cmarin03';
   request(options, function (error, response) {
     if (error) throw new Error(error);
-    res.json(response.body)
+    res.json(JSON.parse(response.body))
   });
 });
 
@@ -48,11 +48,15 @@ router.get("/:uid", (req, res) => {
   options.url += req.params.uid;
   request(options, function (error, response) {
     if (error) throw new Error(error);
-    res.json(response.body)
+    res.json(JSON.parse(response.body))
   });
 });
 
 app.use(`/.netlify/functions/api`, router);
+
+// app.listen(port, () => {
+//   console.log(`Example app listening at http://localhost:${port}`)
+// })
 
 module.exports = app;
 module.exports.handler = serverless(app);
