@@ -5,6 +5,7 @@
   "main": "index.js",
   "dependencies": {
     "express": "^4.16.4",
+    "ical2json": "^3.0.0",
     "netlify-lambda": "^1.4.3",
     "request": "^2.88.2",
     "serverless-http": "^1.9.1"
