@@ -8,7 +8,7 @@ const fs = require('fs');
 
 const app = express();
 const router = express.Router();
-// const port = 3000;
+const port = 3000;
 
 app.use(function (req, res, next) {
 
@@ -35,7 +35,7 @@ app.use(function (req, res, next) {
 
 router.get("/", (req, res) => {
   
-var file = fs.createWriteStream("data.ics");
+var file = fs.createWriteStream("/tmp/data.ics");
 
   var options = {
     'method': 'GET',
@@ -66,7 +66,7 @@ var file = fs.createWriteStream("data.ics");
 
 router.get("/:uid", (req, res) => {
 
-  var file = fs.createWriteStream(`${req.params.uid}.ics`);
+  var file = fs.createWriteStream(`/tmp/${req.params.uid}.ics`);
   var options = {
     'method': 'GET',
     // 'url': 'https://ical-to-json.herokuapp.com/convert.json?url=http%3A%2F%2Fapplis.univ-nc.nc%2Fcgi-bin%2FWebObjects%2FServeurPlanning.woa%2Fwa%2FiCalendarOccupations%3Flogin%3D',
@@ -95,9 +95,9 @@ router.get("/:uid", (req, res) => {
 
 app.use(`/.netlify/functions/api`, router);
 
-// app.listen(port, () => {
-//   console.log(`Example app listening at http://localhost:${port}`)
-// })
+app.listen(port, () => {
+  console.log(`Example app listening at http://localhost:${port}`)
+})
 
 module.exports = app;
 module.exports.handler = serverless(app);
